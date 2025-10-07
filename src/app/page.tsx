@@ -1,7 +1,22 @@
-import Image from "next/image";
+import clsx from "clsx";
 
 export default function HomePage() {
   return (
-    <>Oi</>
+    <div>
+      <h1
+        className={clsx(
+          "text-6xl",
+          "font-bold",
+          "text-blue-400",
+          "hover:text-blue-50",
+          "hover:cursor-pointer",
+          "hover:bg-blue-400",
+          "transition",
+          "duration-100"
+        )}
+      >
+        Oi pessoal lindo
+      </h1>
+    </div>
   );
 }
