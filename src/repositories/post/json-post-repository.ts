@@ -12,7 +12,9 @@ const JSON_POSTS_FILE_PATH = resolve(
   "posts.json"
 );
 
+
 export class JsonPostRepository implements PostRepository {
+
   private async readFromDisk() {
     const jsonContent = await readFile(JSON_POSTS_FILE_PATH, "utf-8");
     const parcedJson = JSON.parse(jsonContent);
@@ -21,7 +23,8 @@ export class JsonPostRepository implements PostRepository {
   }
 
   async findAll(): Promise<PostModel[]> {
-    return this.readFromDisk();
+    const post = this.readFromDisk();
+    return post;
   }
 
   async findById(id: string): Promise<PostModel> {
@@ -35,4 +38,3 @@ export class JsonPostRepository implements PostRepository {
 }
 
 export const postRepository: PostRepository = new JsonPostRepository();
- 
