@@ -17,7 +17,7 @@ export function SpinLoader({ className = "" }: SpinLoaderProps) {
       <div
         className={clsx(
           "w-10 h-10",
-          "border-5 border-t-transparent border-slate-900",
+          "border-5 border-t-transparent border-slate-900 dark:border-t-transparent dark:border-white",
           "rounded-full",
           "animate-spin"
         )}

@@ -6,7 +6,11 @@ export async function PostList() {
   return (
     <div>
       {posts.map((post) => {
-        return <p key={post.id}>{post.title}</p>;
+        return (
+          <div key={post.id}>
+            <p >{post.title}</p>
+          </div>
+        )
       })}
     </div>
   );
