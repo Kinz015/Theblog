@@ -1,4 +1,3 @@
-import { postRepository } from "@/repositories/post/json-post-repository";
 import { PostHeading } from "../PostHeading";
 import { formatDatetime, formatDistanceToNow } from "@/utils/format-datetime";
 
@@ -17,7 +16,6 @@ export async function PostSummary({
   title,
   excerpt,
 }: PostSummaryProps) {
-  const posts = await postRepository.findAll();
 
   return (
     <div className="flex flex-col gap-4 sm:justify-center">

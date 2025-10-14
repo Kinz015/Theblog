@@ -25,18 +25,18 @@ export class JsonPostRepository implements PostRepository {
     const jsonContent = await readFile(JSON_POSTS_FILE_PATH, "utf-8");
     const parcedJson = JSON.parse(jsonContent);
     const { posts } = parcedJson;
-    return posts;
+    return posts as PostModel[];
   }
 
-  async findAll(): Promise<PostModel[]> {
+  async findAllPublic(): Promise<PostModel[]> {
     await this.simulateWait();
 
-    const post = this.readFromDisk();
-    return post;
+    const posts = await this.readFromDisk();
+    return posts.filter(post => post.published);
   }
 
   async findById(id: string): Promise<PostModel> {
-    const posts = await this.findAll();
+    const posts = await this.findAllPublic();
     const post = posts.find((post) => post.id === id);
 
     if (!post) throw new Error("Post não encontrado");
