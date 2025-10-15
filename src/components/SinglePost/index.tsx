@@ -1,4 +1,9 @@
 import { findAllPostBySlugCached } from "@/lib/post/queries";
+import Image from "next/image";
+import { PostHeading } from "../PostHeading";
+import { PostDate } from "../PostDate";
+import { SafeMarkdown } from "../SafeMarkdown";
+import clsx from "clsx";
 
 type SinglePostProps = {
   slug: string;
@@ -8,8 +13,21 @@ export default async function SinglePost({ slug }: SinglePostProps) {
   const post = await findAllPostBySlugCached(slug);
 
   return (
-    <div>
-      <p>{post.title}</p>
-    </div>
+    <article>
+      <header className="group flex flex-col gap-4 mb-4">
+        <Image
+        className="rounded-xl"
+          src={post.coverImageUrl}
+          width={1200}
+          height={720}
+          alt={post.title}
+        />
+        <PostHeading url={`/post/${slug}`}>{post.title}</PostHeading>
+        <p>{post.author} | <PostDate dataTime={post.createdAt}/></p>
+      </header>
+      <p className={clsx("text-xl mb-4 text-slate-900")}>{post.excerpt}</p>
+
+      <SafeMarkdown markdown={post.content} />
+    </article>
   );
 }

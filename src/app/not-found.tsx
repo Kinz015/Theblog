@@ -5,7 +5,7 @@ export default function NotFoundPage() {
     <>
       <div
         className={clsx(
-          "min-h-[320px] bg-slate-900 text-slate-100",
+          "min-h-[320px] bg-slate-100 text-slate-900",
           "mb-16 p-8 rounded-xl",
           "flex items-center justify-center",
           "text-center"
