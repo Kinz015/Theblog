@@ -1,0 +1,1 @@
+  // posts.forEach((post) => console.log(post.slug, post.published));
