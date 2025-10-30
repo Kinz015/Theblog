@@ -1,4 +1,4 @@
-import { findAllPostBySlugCached } from "@/lib/post/queries/queries";
+import { findPublicPostBySlugCached } from "@/lib/post/queries/public";
 import Image from "next/image";
 import { PostHeading } from "../PostHeading";
 import { PostDate } from "../PostDate";
@@ -10,20 +10,22 @@ type SinglePostProps = {
 };
 
 export default async function SinglePost({ slug }: SinglePostProps) {
-  const post = await findAllPostBySlugCached(slug);
+  const post = await findPublicPostBySlugCached(slug);
 
   return (
     <article>
       <header className="group flex flex-col gap-4 mb-4">
         <Image
-        className="rounded-xl"
+          className="rounded-xl"
           src={post.coverImageUrl}
           width={1200}
           height={720}
           alt={post.title}
         />
         <PostHeading url={`/post/${slug}`}>{post.title}</PostHeading>
-        <p>{post.author} | <PostDate dataTime={post.createdAt}/></p>
+        <p>
+          {post.author} | <PostDate dataTime={post.createdAt} />
+        </p>
       </header>
       <p className={clsx("text-xl mb-4 text-slate-900")}>{post.excerpt}</p>
 
