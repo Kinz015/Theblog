@@ -1,9 +1,10 @@
-"use server"
+"use server";
 
-import { logColor } from "@/utils/log-color"
+import { asyncDelay } from "@/utils/async-delay";
+import { logColor } from "@/utils/log-color";
 
-export async function deletePostAction(formData: FormData) {
-
-  const id = formData.get("id")
-  logColor("" + id)
+export async function deletePostAction(id: string) {
+  await asyncDelay(2000);
+  logColor("" + id);
+  return id;
 }
