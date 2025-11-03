@@ -4,7 +4,6 @@ import { postsTable } from "./schemas";
 
 (async () => {
   const jsonPostRepository = new JsonPostRepository();
-
   const posts = await jsonPostRepository.findAll();
 
   try {

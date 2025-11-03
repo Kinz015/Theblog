@@ -1,9 +1,13 @@
+import ErrorMessage from "../ErrorMessage";
 import { PostCoverImage } from "../PostCoverImage";
 import { PostSummary } from "../PostSummary";
 import { findAllPublicPostsCached } from "@/lib/post/queries/public";
 
 export async function PostFeatured() {
   const posts = await findAllPublicPostsCached();
+  console.log(posts[0])
+  if (posts.length <= 0) return <ErrorMessage comentTitle="Ops 😅" content="Nenhum post foi publicado ainda." />
+
   const post = posts[0];
   const slug = post.slug;
   const postLink = `/post/${slug}`;
