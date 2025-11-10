@@ -1,5 +1,7 @@
 import dynamic from "next/dynamic";
 import { useId } from "react";
+import rehypeSanitize from "rehype-sanitize";
+import remarkGfm from "remark-gfm";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -35,8 +37,13 @@ export function MarkdownEditor({
         }}
         height={400}
         extraCommands={[]}
+        preview="edit"
         hideToolbar={disabled}
         textareaProps={{ id, name: textAreaName, disabled: disabled }}
+        previewOptions={{
+          rehypePlugins: [[rehypeSanitize]],
+          remarkPlugins: [[remarkGfm]],
+        }}
       />
     </div>
   );
