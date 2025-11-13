@@ -2,7 +2,7 @@
 
 import { uploadImageAction } from "@/actions/upload/upload-image-action";
 import { Button } from "@/components/Button";
-import { IMAGE_UPLOADER_MAX_SIZE } from "@/lib/post/constants";
+import { IMAGE_UPLOADER_MAX_SIZE } from "@/lib/constants";
 import { ImageUpIcon } from "lucide-react";
 import { useRef, useState, useTransition } from "react";
 import { toast } from "react-toastify";

@@ -4,7 +4,7 @@ import {
   IMAGE_SERVER_URL,
   IMAGE_UPLOADER_DIRECTORY,
   IMAGE_UPLOADER_MAX_SIZE,
-} from "@/lib/post/constants";
+} from "@/lib/constants";
 import { asyncDelay } from "@/utils/async-delay";
 import { mkdir, writeFile } from "fs/promises";
 import { extname, resolve } from "path";
@@ -20,7 +20,7 @@ export async function uploadImageAction(
   // TODO: Verificar se o usuário está logado
 
   // TODO: remover o delay
-  await asyncDelay(5000, true)
+  await asyncDelay(5000, true);
 
   const makeResult = ({ url = "", error = "" }) => ({ url, error });
 
@@ -51,15 +51,15 @@ export async function uploadImageAction(
     IMAGE_UPLOADER_DIRECTORY
   );
 
-  await mkdir(uploadsFullPath, {recursive: true});
-  const fileArrayBuffer = file.arrayBuffer()
+  await mkdir(uploadsFullPath, { recursive: true });
+  const fileArrayBuffer = file.arrayBuffer();
   const buffer = Buffer.from(await fileArrayBuffer);
 
-  const fileFullPath = resolve(uploadsFullPath, uniqueImageName)
+  const fileFullPath = resolve(uploadsFullPath, uniqueImageName);
 
   await writeFile(fileFullPath, buffer);
 
-  const url = `${IMAGE_SERVER_URL}/${uniqueImageName}`
+  const url = `${IMAGE_SERVER_URL}/${uniqueImageName}`;
 
   return makeResult({ url });
 }
