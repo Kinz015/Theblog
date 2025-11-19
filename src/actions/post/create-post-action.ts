@@ -1,10 +1,10 @@
 "use server";
 
 import { makePartialPublicPost, PublicPost } from "@/dto/post/dto";
+import { veryfyLoginSession } from "@/lib/login/manage-login";
 import { PostCreateSchema } from "@/lib/post/validations";
 import { PostModel } from "@/models/post/post-model";
 import { postRepository } from "@/repositories/post";
-import { asyncDelay } from "@/utils/async-delay";
 import { getZodErrorMessages } from "@/utils/get-zod-message";
 import { makeSlugFromText } from "@/utils/make-slug-from-text";
 import { revalidateTag } from "next/cache";
@@ -21,9 +21,7 @@ export async function createPostAction(
   prevState: CreatePostActionState,
   formData: FormData
 ): Promise<CreatePostActionState> {
-  // TODO: verificar se o usuário tá logado
-
-  await asyncDelay(3000);
+  const isAuthenticated = await veryfyLoginSession()
 
   if (!(formData instanceof FormData)) {
     return {
@@ -34,6 +32,13 @@ export async function createPostAction(
 
   const formDataToObj = Object.fromEntries(formData.entries());
   const zodParsedObj = PostCreateSchema.safeParse(formDataToObj);
+
+  if (!isAuthenticated) {
+    return {
+      formState: makePartialPublicPost(formDataToObj),
+      errors: ["Faça login em outra aba antes de salvar."]
+    }
+  }
 
   if (!zodParsedObj.success) {
     const errors = getZodErrorMessages(zodParsedObj.error.format());
